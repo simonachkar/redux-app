@@ -1,11 +1,16 @@
 .App {
+  margin: 0 15vw;
+  margin-top: 5vh;
+}
+
+.App-Content {
   text-align: center;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  min-height: 100vh;
   margin: 0 10rem;
+  margin-top: 5vh;
 }
 
 .block {

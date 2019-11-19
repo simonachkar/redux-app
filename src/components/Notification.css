@@ -1,0 +1,30 @@
+.notification {
+  margin: 1vh;
+  padding: 0px 1vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+
+.success {
+  background: #B9E0A5;
+}
+
+.fail {
+  background: #F19C99;
+}
+
+.notification button {
+  background-color: inherit;
+  border: none;
+  color: inherit;
+  font-size: 1.5vw;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.notification button:hover {
+  font-weight: bold;
+}
