@@ -1,5 +1,6 @@
 .notification {
-  margin: 1vh;
+  width: 30vw;
+  margin: 0.5vh;
   padding: 0px 1vw;
   display: flex;
   flex-direction: row;
