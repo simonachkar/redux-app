@@ -41,3 +41,13 @@ notifications: [
   }
 ]
 ```
+
+## Store
+
+So **actions** represents "what happens" and **reducers** represents "how it happens" as in how the state gets updated according to those actions.
+
+The **store** is the object that brings them together. It **holds the app's state**, allow access to state via `getState()`, allow state update with `dispatch(action)`, registers and unregisters listeners with `subscribe(listener)` that will listen to a state change.
+
+In a Redux app we just have ONE store.
+
+> When you want to split your data handling logic, you'll use reducer composition instead of many stores.
