@@ -1,15 +1,17 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import './App.css'
 import Blue from './components/Blue'
 import Yellow from './components/Yellow'
 import Notification from './components/Notification'
 
-function App() {
+function App({ notifications }) {
   return (
     <div className='App'>
-      <Notification key={1} text={'Test Notification'} status={'success'} index={1} />
-      <Notification key={2} text={'Test Notification'} status={'success'} index={2} />
-      <Notification key={3} text={'Test Notification'} status={'fail'} index={3} />
+      {notifications.reverse().map((notification, i) => (
+        <Notification key={i} text={notification.text} status={notification.status} index={i} />
+      ))}
       <div className='App-Content'>
         <Blue />
         <Yellow />
@@ -18,4 +20,10 @@ function App() {
   )
 }
 
-export default App
+const mapStateToProps = state => {
+  return {
+    notifications: state || []
+  }
+}
+
+export default connect(mapStateToProps)(App)

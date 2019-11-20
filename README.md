@@ -52,6 +52,15 @@ In a Redux app we just have ONE store.
 
 > When you want to split your data handling logic, you'll use reducer composition instead of many stores.
 
+## Data Flow
+
+The data lifecycle in any Redux app follows **4 steps**:
+
+1. You call `store.dispatch(action)`
+1. The Redux store calls the reducer function you gave it
+1. The root reducer may combine the output of multiple reducers into a single state tree (this does not apply to this app)
+1. The Redux store saves the complete state tree returned by the root reducer
+
 ## React
 
 Now we need to hook the store to React, and it's done in `index.js`, by wrapping the `<App />` component by the `<Provider>` component that takes `store` as prop.

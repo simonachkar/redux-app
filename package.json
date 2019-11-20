@@ -21,7 +21,7 @@
     "jsxSingleQuote": true,
     "tabWidth": 2,
     "endOfLine": "lf",
-    "printWidth": 100
+    "printWidth": 110
   },
   "eslintConfig": {
     "extends": "react-app"

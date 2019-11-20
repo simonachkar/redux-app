@@ -1,12 +1,18 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { addNotification } from '../actions'
 
-const Blue = () => {
+const Blue = ({ dispatch }) => {
   return (
     <div className='block blue'>
-      <button>Toggle Fail Notification</button>
-      <button>Toggle Success Notification</button>
+      <button onClick={() => dispatch(addNotification('Notification from the Blue Component', 'fail'))}>
+        Toggle Fail Notification
+      </button>
+      <button onClick={() => dispatch(addNotification('Notification from the Blue Component', 'success'))}>
+        Toggle Success Notification
+      </button>
     </div>
   )
 }
 
-export default Blue
+export default connect()(Blue)
