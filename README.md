@@ -51,3 +51,13 @@ The **store** is the object that brings them together. It **holds the app's stat
 In a Redux app we just have ONE store.
 
 > When you want to split your data handling logic, you'll use reducer composition instead of many stores.
+
+## React
+
+Now we need to hook the store to React, and it's done in `index.js`, by wrapping the `<App />` component by the `<Provider>` component that takes `store` as prop.
+
+```jsx
+<Provider store={store}>
+  <App />
+</Provider>
+```
