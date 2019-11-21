@@ -33,11 +33,11 @@ Always keep in mind the shape of the app's state:
 notifications: [
   {
     text: '...',
-    status: 'error'
+    status: 'success'
   },
   {
     text: '...',
-    status: 'info'
+    status: 'fail'
   }
 ]
 ```
