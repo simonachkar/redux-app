@@ -1,7 +1,8 @@
 # What is Redux – Understanding Redux by building a push notification app
 
 <p align="center">
-    <img alt="redux-logo" src="redux-logo.png" width="150" />
+  <img alt="redux-logo" src="img/redux-logo.png" width="100" />
+  <img alt="react-logo" src="img/react-logo.png" width="100" />
 </p>
 
 ## Introduction
@@ -16,7 +17,7 @@ In this article, I am going to explain the building blocks of Redus while coding
 
 The following is a mockup of the app we are going to build:
 
-![App Design](redux-app.png)
+![App Design](img/redux-app.png)
 
 ## Notes
 
@@ -50,7 +51,7 @@ Now, we are going to talk a little bit about Redux building blocks and what make
 1. Reducers
 1. Store
 
-![Redux Building Blocks](building-blocks.png)
+![Redux Building Blocks](img/building-blocks.png)
 
 ### Actions
 
