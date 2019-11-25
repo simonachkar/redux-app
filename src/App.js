@@ -7,6 +7,8 @@ import Yellow from './components/Yellow'
 import Notification from './components/Notification'
 
 function App({ notifications }) {
+  console.log('notif', notifications)
+
   return (
     <div className='App'>
       {notifications.reverse().map((notification, i) => (
@@ -21,8 +23,11 @@ function App({ notifications }) {
 }
 
 const mapStateToProps = state => {
+  const { notifications } = state
+  console.log(notifications)
+
   return {
-    notifications: state || []
+    notifications
   }
 }
 
