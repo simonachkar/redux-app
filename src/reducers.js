@@ -15,7 +15,11 @@ Always keep in mind the shape of the app's state:
 }
 */
 
-export default (state = { notifications: [] }, action) => {
+const initialState = {
+  notifications: []
+}
+
+export default (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_NOTIFICATION':
       return {
