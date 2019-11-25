@@ -10,3 +10,4 @@ This is the skeleton code of the app.
 The following is a mockup of the app we are going to build:
 
 ![App Design](img/redux-app.png)
+
