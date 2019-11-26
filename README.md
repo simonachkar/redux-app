@@ -26,6 +26,7 @@ The following is a mockup of the app we are going to build:
 - For simplicity, you will use an already created skeleton and then add the Redux part to it.
 - I am using yarn, but feel free to use npm if you want.
 - The full code is [here](https://github.com/simonachkar/redux-app)
+- It is highly recommended to use Chrome for this and install the React Developer Tools extension [link here](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
 
 ## Ready? Set. Code!
 
@@ -200,11 +201,104 @@ The data lifecycle in any Redux app follows **4 steps**:
 
 1. You call `store.dispatch(action)`
 1. The Redux store calls the reducer function you gave it
-1. The root reducer may combine the output of multiple reducers into a single state tree – **this does not apply to this app*
+1. The root reducer may combine the output of multiple reducers into a single state tree – \*_this does not apply to this app_
 1. The Redux store saves the complete state tree returned by the root reducer
 
-#### Our App 
+#### Our App
 
 ##### Adding a Notification
 
-We will be toggling the buttons in the `Blue.js` and `Yellow.js` blocks to add a notificaiton on click. 
+We will be toggling the buttons in the `Blue.js` and `Yellow.js` blocks to add a notificaiton on click. Fot that we need to call the action with `dispatch(action)`.
+
+First we need to connect the component to Redux. We're going to start with the `Blue.js` component. Import `connect` from `react-redux`:
+
+```js
+import { connect } from 'react-redux'
+```
+
+And wrap the compoent with `connect()` on export:
+
+```js
+export default connect()(Blue)
+```
+
+By wrapping the component it will give us access to the `dispatch` function, that will be accessable from the props, and `dispatch` will allow us to trigger the action (`addNoticaction`).
+
+Pass `dispatch` to the arrow function:
+
+```js
+const Blue = ({ dispatch }) => {
+```
+
+Or you can pass props (but make sure to use `props.dispatch` if you want to use this approach):
+
+```js
+const Blue = (props) => {
+```
+
+And on button click we want to trigger the `addNotification` action. So first import the action:
+
+```js
+import { addNotification } from '../actions'
+```
+
+And then add the `onClick` event attribute to both buttons passing the `dispatch(addNotification())` to it:
+
+```js
+<button onClick={() => dispatch(addNotification('Notification from the Blue Component', 'fail'))}>
+  Toggle Fail Notification
+</button>
+<button onClick={() => dispatch(addNotification('Notification from the Blue Component', 'success'))}>
+  Toggle Success Notification
+</button>
+```
+
+And we're done! At the end the file `src/components/Blue.js` will look like this:
+
+```js
+import React from 'react'
+import { connect } from 'react-redux'
+import { addNotification } from '../actions'
+
+const Blue = ({ dispatch }) => {
+  return (
+    <div className='block blue'>
+      <button onClick={() => dispatch(addNotification('Notification from the Blue Component', 'fail'))}>
+        Toggle Fail Notification
+      </button>
+      <button onClick={() => dispatch(addNotification('Notification from the Blue Component', 'success'))}>
+        Toggle Success Notification
+      </button>
+    </div>
+  )
+}
+
+export default connect()(Blue)
+```
+
+Do the same to `src/components/Yellow.js` for it to look like this:
+
+```js
+import React from 'react'
+import { connect } from 'react-redux'
+import { addNotification } from '../actions'
+
+const Yellow = ({ dispatch }) => {
+  return (
+    <div className='block yellow'>
+      <button onClick={() => dispatch(addNotification('Notification from the Yellow Component', 'fail'))}>
+        Toggle Fail Notification
+      </button>
+      <button onClick={() => dispatch(addNotification('Notification from the Yellow Component', 'success'))}>
+        Toggle Success Notification
+      </button>
+    </div>
+  )
+}
+
+export default connect()(Yellow)
+```
+
+You can see Redux in action, run the app with `yarn start` (or `npm run start`) and open the React dev tools, if you click on the App component you can see the props on the right side of the screen. Click on the button and watch how a new notification will be added to the notification array.
+
+![Dev-Tools-addNotification](img/dev-tools-1.png)
