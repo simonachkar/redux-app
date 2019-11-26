@@ -3,9 +3,8 @@ import React from 'react'
 import './App.css'
 import Blue from './components/Blue'
 import Yellow from './components/Yellow'
-import Notification from './components/Notification'
 
-function App({ notifications }) {
+function App() {
   return (
     <div className='App'>
       <div className='App-Content'>
