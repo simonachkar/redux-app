@@ -99,7 +99,7 @@ Reducers specify how the application's state changes in reponse to to the action
 
 In Redux, all the application state is stored as a single object. Note that a reducer is just a function. Its job is to compute the next state.
 
-### Our app
+#### Our app
 
 Always keep in mind the shape of the app's state, for our app our state consist of a notification property that contains the array of push notifications.
 
@@ -149,10 +149,14 @@ export default (state = initialState, action) => {
 }
 ```
 
-Okay... Let's slow down a bit. Like I said before, **a reducer is just a function**! It takes the state and the action as arguments, then it modifies the state and returns the newly modified state according to the action `type`. If no state was passed (which will happen when starting the app), the state will equa;s the initialState (an object with an empty notifications array).
+Okay... Let's slow down a bit. Like I mentioned before, **a reducer is just a function**! It takes the state and the action as arguments, then it modifies the state and returns the newly modified state according to the `type` of the action. If no state was passed (which will happen when starting the app), the state will equals the `initialState` (an object with an empty notifications array).
 
-<h1 style="color: red">To be continued</h1>
+The reducer function contain a switch statement that checks the action `type`. If `addNotification` was called, then the action is of type `ADD_NOTIFICATION` and what happens here is that the state is returned with the addition of the new notification, we get the information of the notification from the action (`action.text` and `action.status`) – remember that on `addNoticfication` the action returns an object containing `type`, `text` and `status` – 
 
+> The **three dots operator** `...` is a featured introduced in ES6. It spreads the object to a new object, using all the objects properties (see [this article](https://medium.com/@oprearocks/what-do-the-three-dots-mean-in-javascript-bc5749439c9a) for more info)
+
+When `removeNotification` is called, then the action is of type `REMOVE_NOTIFICATION` and the notification with the correspondent id (`action.id`) will be removed with the [`filter` funtion](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter). 
+ 
 ## Store
 
 So **actions** represents "what happens" and **reducers** represents "how it happens" as in how the state gets updated according to those actions.
