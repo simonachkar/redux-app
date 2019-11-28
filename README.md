@@ -257,6 +257,7 @@ Don't forget to import the `Notification` component:
 ```js
 import Notification from './components/Notification'
 ```
+
 At the end the `App.js` component will look like this:
 
 ```js
@@ -393,6 +394,55 @@ const Yellow = ({ dispatch }) => {
 export default connect()(Yellow)
 ```
 
-You can see Redux in action, run the app with `yarn start` (or `npm run start`) and open the React dev tools, if you click on the App component you can see the props on the right side of the screen. Click on the button and watch how a new notification will be added to the notification array.
+You can see Redux in action, run the app with `yarn start` (or `npm run start`) and click on the toggle buttons and watch how a new notification will be added to the view.
 
-![Dev-Tools-addNotification](img/dev-tools-1.png)
+##### Removing a Notification
+
+Now we need to remove a notification when clicking on the notification `X` button on the right. And where should we fire the action from? The `Notificaiton` component itself!
+
+We do the same thing as we did when adding a notifiaciton. Go to `src/components/Notification.js`, and import `connect` from `react-redux` and `removeNotification` from `actions.js`:
+
+```js
+import { connect } from 'react-redux'
+import { removeNotification } from '../actions'
+```
+
+Then, wrap `connect()` to the export statement:
+
+```js
+export default connect()(Notification)
+```
+
+Now add `dispatch` to the props:
+
+```js
+const Notification = ({ dispatch, text, status = 'success', index }) => {
+```
+
+Finally, add the `onClick` listener to the `<button>` that will call the `removeNotification` action:
+
+```js
+<button onClick={() => dispatch(removeNotification(index))}>X</button>
+```
+
+And we're done! The file will look like this at the end:
+
+```js
+// src/components/Notification.js
+
+import React from 'react'
+import { connect } from 'react-redux'
+import { removeNotification } from '../actions'
+import './Notification.css'
+
+const Notification = ({ dispatch, text, status = 'success', index }) => {
+  return (
+    <div className={`notification ${status}`}>
+      <p>{text}</p>
+      <button onClick={() => dispatch(removeNotification(index))}>X</button>
+    </div>
+  )
+}
+
+export default connect()(Notification)
+```
