@@ -206,6 +206,96 @@ The data lifecycle in any Redux app follows **4 steps**:
 
 #### Our App
 
+##### Accessing the Redux store
+
+In our app we nned to hook up Redux to the components that will need access to the store. The React Redux librbary provide us with a function `connect()` which will "connect" the component to the store and will also provide manu useful optimizaitons to prevent unecessary renders.
+
+We need to access the notifications array in `App.js`, so if a notification gets added or removed the interface will update accordinly. We wrap the `App` component with `connect()` and we also need to define a special function called `mapStateToProps` that describes how to transform the current Redux store state into the props we want to pass to the `App`.
+
+First import `connect` from `react-redux`:
+
+```js
+import { connect } from 'react-redux'
+```
+
+In our case we need to get the notifications array from the current Redux store state, and we will pass it as a prop named `notifications`. Before the `export` statement in `src/App.js` write these line of code:
+
+```js
+const mapStateToProps = state => {
+  const { notifications } = state
+  return {
+    notifications
+  }
+}
+
+export default connect(mapStateToProps)(App)
+```
+
+And then pass it to the App function:
+
+```js
+function App({ notifications }) {
+```
+
+Or you can pass props (but make sure to use `props.notifications` if you want to use this approach):
+
+```js
+function App(props) {
+```
+
+Finaly we need to render the notification component if there is notifications to display, we pass the notification and the index `i` and then we render the component `<Notification>`:
+
+```js
+<div className='App'>
+  {notifications.reverse().map((notification, i) => (
+    <Notification key={i} text={notification.text} status={notification.status} index={i} />
+  ))}
+```
+
+Don't forget to import the `Notification` component:
+
+```js
+import Notification from './components/Notification'
+```
+At the end the `App.js` component will look like this:
+
+```js
+// src/App.js
+
+import React from 'react'
+import { connect } from 'react-redux'
+
+import './App.css'
+import Blue from './components/Blue'
+import Yellow from './components/Yellow'
+import Notification from './components/Notification'
+
+function App({ notifications }) {
+  return (
+    <div className='App'>
+      {notifications.reverse().map((notification, i) => (
+        <Notification key={i} text={notification.text} status={notification.status} index={i} />
+      ))}
+      <div className='App-Content'>
+        <Blue />
+        <Yellow />
+      </div>
+    </div>
+  )
+}
+
+const mapStateToProps = state => {
+  const { notifications } = state
+  console.log(notifications)
+
+  return {
+    notifications
+  }
+}
+
+export default connect(mapStateToProps)(App)
+```
+
 ##### Adding a Notification
 
 We will be toggling the buttons in the `Blue.js` and `Yellow.js` blocks to add a notificaiton on click. Fot that we need to call the action with `dispatch(action)`.
@@ -256,6 +346,8 @@ And then add the `onClick` event attribute to both buttons passing the `dispatch
 And we're done! At the end the file `src/components/Blue.js` will look like this:
 
 ```js
+// src/components/Blue.js
+
 import React from 'react'
 import { connect } from 'react-redux'
 import { addNotification } from '../actions'
@@ -279,6 +371,8 @@ export default connect()(Blue)
 Do the same to `src/components/Yellow.js` for it to look like this:
 
 ```js
+// src/components/Yellow.js
+
 import React from 'react'
 import { connect } from 'react-redux'
 import { addNotification } from '../actions'
