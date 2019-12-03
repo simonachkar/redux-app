@@ -7,13 +7,15 @@
 
 ## Introduction
 
-When I first learned React a year ago, nearly all the React courses were titled "React and Redux crash-course" or "Learn React and Redux" so I thought that in order to learn React, I should learn Redux... But that was not the case, when I started making client projects with React I noticed that I didn't need Redux, the projects were mostly small web apps or websites and I was doing a lot of things with React without a state management library. That was until I worked on a really big project that already used Redux, it was time for me to relearn Redux!
+When I first learned React a year ago, almosr all the React courses were titled "React and Redux crash-course" or "Learn React and Redux"... so I thought that to learn React, I should learn Redux. But that was not the case! When I started making client projects with React I noticed that I didn't need Redux, the projects were mostly small web apps or websites and I was doing a lot of things with stand-alone React without a state management library. That was until I worked on a really big project that already used Redux, it was time for me to re-learn Redux!
 
 ## WTH is Redux?
 
-Redux is a popular JavaScript library for managing the state of an app. A state is what holds data that will be used in the UI-elements. It can hold information fetched from an API call, or any backend or local files (for example the list of users, the name of the user, a list of tasks in a todo app...). In React, a component will rerender when its state change. Redux enable usage of a global state object that could be use thought all the app and makes it easier to manage all the app's states.
+Redux is a popular JavaScript library for managing the state of an app. A _state_ is what holds data that will be used in the UI-elements. It can hold information fetched from an API call, or any backend or local files (for example the list of users, the name of the user, a list of tasks in a todo app...). In React, a component will rerender when its state change. 
 
-In this article, I am going to explain the building blocks of Redus while coding an app. The app consist of two components (`Blue.js` and `Yellow.js`) having buttons that triggers a push notification. The push notification will be displayed in the main component `App.js`. I think this is a good example to explore how to create, modify and use a global state object in a React app using Redux.
+Redux enable usage of a global state object that could be use thought all the app and makes it easier to manage all the app's states.
+
+In this article, I am going to explain the building blocks of Redux while coding an app. The app consist of two components (`Blue.js` and `Yellow.js`) having buttons that triggers a push notification. The push notification will be displayed in the main component `App.js`. I think this is a good example to explore how to create, modify and use a global state object in a React app using Redux.
 
 The following is a mockup of the app we are going to build:
 
@@ -21,12 +23,11 @@ The following is a mockup of the app we are going to build:
 
 ## Notes
 
-- I'm assuming that you have a solid understanding of JavaScript, CSS, NodeJS.
-- I'm assuming you have basic knowledge of git.
+- I'm assuming that you have a solid understanding of JavaScript, CSS, and NodeJS.
+- I'm assuming you have basic knowledge of `git`.
 - For simplicity, you will use an already created skeleton and then add the Redux part to it.
-- I am using yarn, but feel free to use npm if you want.
+- I am using `yarn`, but feel free to use `npm` if you want.
 - The full code is [here](https://github.com/simonachkar/redux-app)
-- It is highly recommended to use Chrome for this and install the React Developer Tools extension [link here](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
 
 ## Ready? Set. Code!
 
@@ -40,13 +41,13 @@ git checkout skeleton
 
 Feel free to explore the skeleton (you can always switch back to the master branch with `git checkout master`). The app is simple it has two blocks (Blue and Yellow), a notification component and simple styling using CSS.
 
-Next, we need to install the libraries.
+Next, we need to install the `redux` library  as well as the React binding library `react-redux`.
 
 ```
 yarn add redux react-redux
 ```
 
-Now, we are going to talk a little bit about Redux building blocks and what makes Redux... Redux. There are three building blocks:
+Now, we are going to talk a little bit about Redux building blocks and what makes Redux, well... Redux! There are three building blocks:
 
 1. Actions
 1. Reducers
@@ -58,7 +59,7 @@ Now, we are going to talk a little bit about Redux building blocks and what make
 
 > Actions: the WHAT
 
-Actions are a playload of information that send data from the app to the Redux store, using `store.dispatch()`.
+Actions are a payload of information that sends data from the app to the Redux store, using `store.dispatch()`.
 
 Actions must have a `type` property that indicates the type of action being performed. Types should typically be defined as
 string constants.
@@ -67,9 +68,9 @@ Once your app is large enough, you may want to move them into a separate module.
 
 #### Our App
 
-For our app the actions are `addNotification` and `removeNotification` and they will be use to add and remove notifications form the app's store. Create a file in `src` called `actions.js` and add two arrow fuctions for adding and removing notificaitons.
+For our app, the actions are `addNotification` and `removeNotification` and they will be used to add and remove notifications from the app's store. Create a file in `src` called `actions.js` and add two arrow functions for adding and removing notifications.
 
-To add a notification we need to indicate its text and its status. For simplicity, status will be a sting of either `"fail"` or `"success"`. _Don't forget the type property_.
+To add a notification we need to indicate its text and its status. For simplicity, status will be a string of either `"fail"` or `"success"`. _Don't forget the type property_.
 
 ```js
 export const addNotification = (text, status) => {
@@ -96,7 +97,7 @@ export const removeNotification = id => {
 
 > Reducers: the HOW
 
-Reducers specify how the application's state changes in reponse to to the actions sent to the store.
+Reducers specify how the application's state changes in response to the actions sent to the store.
 
 In Redux, all the application state is stored as a single object. Note that a reducer is just a function. Its job is to compute the next state.
 
@@ -150,13 +151,13 @@ export default (state = initialState, action) => {
 }
 ```
 
-Okay... Let's slow down a bit. Like I mentioned before, **a reducer is just a function**! It takes the state and the action as arguments, then it modifies the state and returns the newly modified state according to the `type` of the action. If no state was passed (which will happen when starting the app), the state will equals the `initialState` (an object with an empty notifications array).
+Okay... Let's slow down a bit. Like I mentioned before, **a reducer is just a function**! It takes the state and the action as arguments, then it modifies it and returns the newly modified state according to the `type` of the action. If no state was passed (which will happen when starting the app), the state will equal the `initialState` (an object with an empty notifications array).
 
-The reducer function contain a switch statement that checks the action `type`. If `addNotification` was called, then the action is of type `ADD_NOTIFICATION` and what happens here is that the state is returned with the addition of the new notification, we get the information of the notification from the action (`action.text` and `action.status`) – remember that on `addNoticfication` the action returns an object containing `type`, `text` and `status` –
+The reducer function contains a switch statement that checks the action `type`. If `addNotification` was called, then the action is of type `'ADD_NOTIFICATION'` and what happens here is that the state is returned with the addition of the new notification, we get the information of the notification from the action (`action.text` and `action.status`) – remember that on `addNoticfication` the action returns an object containing `type`, `text` and `status` –
 
 > The **three dots operator** `...` is a featured introduced in ES6. It spreads the object to a new object, using all the objects properties (see [this article](https://medium.com/@oprearocks/what-do-the-three-dots-mean-in-javascript-bc5749439c9a) for more info)
 
-When `removeNotification` is called, then the action is of type `REMOVE_NOTIFICATION` and the notification with the correspondent id (`action.id`) will be removed with the [`filter` funtion](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter).
+When `removeNotification` is called, then the action is of type `'REMOVE_NOTIFICATION'` and the notification with the correspondent id (`action.id`) will be removed with the [`filter` funtion](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter).
 
 ### Store
 
@@ -164,7 +165,7 @@ So **actions** represents "what happens" and **reducers** represents "how it hap
 
 The **store** is the object that brings them together. It **holds the app's state**, allows access to state via `getState()`, allows state update with `dispatch(action)`, registers and unregisters listeners with `subscribe(listener)` that will listen to a state change.
 
-In a Redux app we just have **ONE store**.
+In a Redux app, we just have **ONE store**.
 
 > When you want to split your data handling logic, you'll use reducer composition instead of many stores.
 
@@ -185,7 +186,7 @@ import reducers from './reducers'
 
 ### Wrapping the React app with Redux
 
-Now we need to hook the store to React, and it's also done in `src/index.js`. We do that by wrapping the `<App />` component by the `<Provider>` component that takes `store` as prop. Now we can access the store throught all of our React app.
+Now we need to hook the store to React, and it's also done in `src/index.js`. We do that by wrapping the `<App />` component by the `<Provider>` component that takes `store` as prop. Now we can access the store throughout all of our React app.
 
 ```jsx
 <Provider store={store}>
@@ -208,9 +209,9 @@ The data lifecycle in any Redux app follows **4 steps**:
 
 ##### Accessing the Redux store
 
-In our app we nned to hook up Redux to the components that will need access to the store. The React Redux librbary provide us with a function `connect()` which will "connect" the component to the store and will also provide manu useful optimizaitons to prevent unecessary renders.
+In our app, we need to hook up Redux to the components that will need access to the store. The React-Redux library provides us with a function `connect()` which will "connect" the component to the store and will also provide many useful optimizations to prevent unnecessary renders.
 
-We need to access the notifications array in `App.js`, so if a notification gets added or removed the interface will update accordinly. We wrap the `App` component with `connect()` and we also need to define a special function called `mapStateToProps` that describes how to transform the current Redux store state into the props we want to pass to the `App`.
+We need to access the notifications array in `App.js`, so if a notification gets added or removed the interface will update accordingly. We wrap the `App` component with `connect()` and we also need to define a special function called `mapStateToProps` that describes how to transform the current Redux store state into the props we want to pass to the `App`.
 
 First import `connect` from `react-redux`:
 
@@ -218,7 +219,7 @@ First import `connect` from `react-redux`:
 import { connect } from 'react-redux'
 ```
 
-In our case we need to get the notifications array from the current Redux store state, and we will pass it as a prop named `notifications`. Before the `export` statement in `src/App.js` write these line of code:
+In our case, we need to get the notifications array from the current Redux store state, and we will pass it as a prop named `notifications`. Before the `export` statement in `src/App.js` write these line of code:
 
 ```js
 const mapStateToProps = state => {
@@ -243,7 +244,7 @@ Or you can pass props (but make sure to use `props.notifications` if you want to
 function App(props) {
 ```
 
-Finaly we need to render the notification component if there is notifications to display, we pass the notification and the index `i` and then we render the component `<Notification>`:
+Finally, we need to render the notification component if there are notifications to display, we pass the notification and the index `i` and then we render the component `<Notification>`:
 
 ```js
 <div className='App'>
@@ -299,9 +300,9 @@ export default connect(mapStateToProps)(App)
 
 ##### Adding a Notification
 
-We will be toggling the buttons in the `Blue.js` and `Yellow.js` blocks to add a notificaiton on click. Fot that we need to call the action with `dispatch(action)`.
+We will be toggling the buttons in the `Blue.js` and `Yellow.js` blocks to add a notification on click. For that, we need to call the action with `dispatch(action)`.
 
-First we need to connect the component to Redux. We're going to start with the `Blue.js` component. Import `connect` from `react-redux`:
+First, we need to connect the component to Redux. We're going to start with the `Blue.js` component. Import `connect` from `react-redux`:
 
 ```js
 import { connect } from 'react-redux'
@@ -313,7 +314,7 @@ And wrap the compoent with `connect()` on export:
 export default connect()(Blue)
 ```
 
-By wrapping the component it will give us access to the `dispatch` function, that will be accessable from the props, and `dispatch` will allow us to trigger the action (`addNoticaction`).
+By wrapping the component it will give us access to the `dispatch` function, that will be accessible from the props, and `dispatch` will allow us to trigger the action (`addNoticaction`).
 
 Pass `dispatch` to the arrow function:
 
@@ -327,7 +328,7 @@ Or you can pass props (but make sure to use `props.dispatch` if you want to use 
 const Blue = (props) => {
 ```
 
-And on button click we want to trigger the `addNotification` action. So first import the action:
+And on button click, we want to trigger the `addNotification` action. So first import the action:
 
 ```js
 import { addNotification } from '../actions'
@@ -344,7 +345,7 @@ And then add the `onClick` event attribute to both buttons passing the `dispatch
 </button>
 ```
 
-And we're done! At the end the file `src/components/Blue.js` will look like this:
+At the end the file `src/components/Blue.js` will look like this:
 
 ```js
 // src/components/Blue.js
@@ -398,9 +399,9 @@ You can see Redux in action, run the app with `yarn start` (or `npm run start`) 
 
 ##### Removing a Notification
 
-Now we need to remove a notification when clicking on the notification `X` button on the right. And where should we fire the action from? The `Notificaiton` component itself!
+Now we need to remove a notification when clicking on the notification `X` button on the right. And where should we fire the action from? The `Notification` component itself!
 
-We do the same thing as we did when adding a notifiaciton. Go to `src/components/Notification.js`, and import `connect` from `react-redux` and `removeNotification` from `actions.js`:
+We do the same thing as we did when adding a notification. Go to `src/components/Notification.js`, and import `connect` from `react-redux` and `removeNotification` from `actions.js.
 
 ```js
 import { connect } from 'react-redux'
